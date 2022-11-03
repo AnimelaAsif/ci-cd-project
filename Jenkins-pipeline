@@ -1,0 +1,26 @@
+node{
+    
+    stage("Git Clone"){
+
+        git credentialsId: 'GIT_HUB_CREDENTIALS', url: 'https://github.com/AnimelaAsif/ci-cd-project.git'
+    }
+    
+    stage('maven Build'){
+
+       sh 'mvn package'
+    } 
+    
+    stage("Docker Login"){
+        withCredentials([string(credentialsId: 'DOCKER_HUB_CREDENTIALS', variable: 'PASSWORD')]) {
+            sh 'docker login -u mohammed2asif -p $PASSWORD'
+        }
+    } 
+    
+    stage("docker image build"){
+        sh 'docker build -t mohammed2asif/project .'
+    }
+    
+    stage("Push Image to Docker Hub"){
+        sh 'docker push  mohammed2asif/project:latest'
+    }
+}
