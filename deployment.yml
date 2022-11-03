@@ -1,32 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
-metadata:
-  name: project-deployment
-spec:
+metadata: 
+  name: ci-cd-project
+  labels:
+    app: java
+spec: 
   replicas: 2
-  selector:
-    matchLabels:
-      app: project
-  template:
-    metadata:
-      labels:
-        app: project
+  selector: 
+    matchLabels: 
+      app: java
+  template: 
+    metadata: 
+      labels: 
+        app: java
     spec:
       containers:
-      - name: project
-        image: mohammed2asif/project
-        ports:
+      - name: tomcat
+        image: mohammed2asif/ci-cd-project
+        ports: 
         - containerPort: 80
 
 
 apiVersion: v1
 kind: Service
-metadata:
-  name: project
-spec:
-  type: NodePort
-  ports:
-    - port: 80
-      targetPort: 8080
-  selector:
-    app: project
+metadata: 
+  name: ci-cd-project-service
+spec: 
+  type: LoadBalancer
+  ports: 
+  - port: 80
+  selector: 
+    app: tomcat
