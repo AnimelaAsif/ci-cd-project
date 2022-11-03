@@ -4,4 +4,4 @@ COPY . .
 RUN mvn clean package
 
 FROM tomcat:8.0
-COPY --from=mvn_build /app/target/*.war /usr/local/tomcat/webapps
+COPY --from=mvn_build /app/target/*.jar /usr/local/tomcat/webapps
