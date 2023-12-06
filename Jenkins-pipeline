@@ -21,10 +21,6 @@ node{
     }
     
     stage("Push Image to Docker Hub"){
-        sh 'docker push  mohammed2asif/project:latest'
-    }
-    
-    stage("deploy app"){
-        sh 'kubectl apply -f deployment.yml'
+        sh 'docker image ls'
     }
 }
